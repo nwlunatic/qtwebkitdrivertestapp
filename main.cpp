@@ -4,19 +4,26 @@
 #include <QGraphicsWebView>
 #include <QCoreApplication>
 #include <QRegularExpression>
-
+#include <QUrl>
+#include <QDebug>
 #include <iostream>
+#include <QWebFrame>
+
+#include "mypage.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    QString baseDir = QCoreApplication::applicationDirPath();
+    QString indexLocation = baseDir + QString("/html/index.html");
+    QString libsLocation = baseDir + QString("/libs");
+    QCoreApplication::addLibraryPath(QLatin1String(libsLocation.toStdString().c_str()));
 
     Html5ApplicationViewer viewer;
+
     viewer.setOrientation(Html5ApplicationViewer::ScreenOrientationAuto);
     viewer.showExpanded();
     viewer.showMaximized();
-
-    std::cout << qWebKitVersion().toStdString() << std::endl;
 
     int remoteInspectorPort = 0;
     QRegularExpression re("--inspect=(\\d+)");
@@ -38,7 +45,7 @@ int main(int argc, char *argv[])
     inspector->setPage(viewer.webView()->page());
     inspector->setVisible(false);
 
-    viewer.loadFile(QLatin1String("html/index.html"));
+    viewer.loadFile(QLatin1String(indexLocation.toStdString().c_str()));
 
     return app.exec();
 }

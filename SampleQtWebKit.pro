@@ -9,8 +9,17 @@ DEPLOYMENTFOLDERS = folder_01
 #DEFINES += TOUCH_OPTIMIZED_NAVIGATION
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    mypage.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(html5applicationviewer/html5applicationviewer.pri)
 qtcAddDeployment()
+
+HEADERS += \
+    mypage.h
+
+QMAKE_LFLAGS += -Wl,-rpath=\\\$\$ORIGIN
+QMAKE_LFLAGS += -Wl,--rpath=\\\$\$ORIGIN/lib
+QMAKE_LFLAGS += -Wl,--rpath=\\\$\$ORIGIN/libs
+QMAKE_RPATH=

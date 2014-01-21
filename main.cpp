@@ -21,6 +21,9 @@ int main(int argc, char *argv[])
 #ifdef Q_OS_LINUX
     QString indexLocation = baseDir + QString("/html/index.html");
 #endif
+#ifdef Q_OS_WIN
+    QString indexLocation = baseDir + QString("/html/index.html");
+#endif
     QString libsLocation = baseDir + QString("/libs");
     QCoreApplication::addLibraryPath(QLatin1String(libsLocation.toStdString().c_str()));
 
@@ -50,7 +53,6 @@ int main(int argc, char *argv[])
     inspector->setPage(viewer.webView()->page());
     inspector->setVisible(false);
 
-    std::cout << indexLocation.toStdString().c_str() << std::endl;
     viewer.loadFile(QLatin1String(indexLocation.toStdString().c_str()));
 
     return app.exec();

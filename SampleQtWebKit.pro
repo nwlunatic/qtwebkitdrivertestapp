@@ -19,7 +19,9 @@ qtcAddDeployment()
 HEADERS += \
     mypage.h
 
-QMAKE_LFLAGS += -Wl,-rpath=\\\$\$ORIGIN
-QMAKE_LFLAGS += -Wl,--rpath=\\\$\$ORIGIN/lib
-QMAKE_LFLAGS += -Wl,--rpath=\\\$\$ORIGIN/libs
-QMAKE_RPATH=
+unix:!macx {
+    QMAKE_LFLAGS += -Wl,-rpath=\\\$\$ORIGIN
+    QMAKE_LFLAGS += -Wl,--rpath=\\\$\$ORIGIN/lib
+    QMAKE_LFLAGS += -Wl,--rpath=\\\$\$ORIGIN/libs
+    QMAKE_RPATH=
+}
